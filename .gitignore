@@ -1,3 +1,4 @@
+# Unity side
 Library
 Temp
 obj
@@ -8,12 +9,11 @@ Logs
 Releases
 Deploy
 bin
-*.sh
-*.sln
-*.csproj
-*.user
-*.vsconfig
-/*.sln
+/UnityApp/*.sh
+/UnityApp/*.csproj
+/UnityApp/*.user
+/UnityApp/*.vsconfig
+/UnityApp/*.sln
 UserSettings
 
 # Unity Build
