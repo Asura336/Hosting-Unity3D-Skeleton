@@ -16,8 +16,10 @@ namespace WPFApp
 
         /* 窗口装载 Unity 窗口作为控件后如果同一窗口还有其他控件，
          * 输入焦点可能无法正确传递给 Unity 窗口（推测），
-         * 表现为与其他 WPF 控件交互（比如按一次按钮）后 Unity 窗口可能无法继续响应按键输入
+         * 表现为与其他 WPF 控件交互（比如按一次按钮）后 Unity 窗口可能无法继续响应键盘输入，
          * 包括文本框
+         * 
+         * 拖拽窗口边缘以改变窗口尺寸后 Unity 窗口可以响应键盘输入
          * 
          * 鼠标事件不受影响，Unity 部分可以正确响应输入（视口被视为全屏）
          * 
@@ -84,6 +86,7 @@ namespace WPFApp
             string? result = m_server.Send("reset");
             Msg_Result.Content = result ?? "(Nothing)";
 
+            // 点击此按钮后主动清除键盘焦点，Unity 侧依然无法正确响应键盘输入
             await Task.Yield();
             Keyboard.ClearFocus();
         }
