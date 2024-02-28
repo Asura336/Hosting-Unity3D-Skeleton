@@ -1,0 +1,30 @@
+Library
+Temp
+obj
+Log
+Logs
+.vs
+.vscode
+Releases
+Deploy
+bin
+*.sh
+*.sln
+*.csproj
+*.user
+*.vsconfig
+/*.sln
+UserSettings
+
+# Unity Build
+UnityApp_Build
+
+# 资源包
+/AssetBundles
+
+#Rider编辑器相关
+.idea
+*.DotSettings
+
+# Addressables build info
+Assets/AddressableAssetsData/Windows/
