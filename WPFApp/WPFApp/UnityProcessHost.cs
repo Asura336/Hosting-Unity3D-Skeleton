@@ -30,11 +30,25 @@ namespace WPFApp
                 if (m_unityProcess != null)
                 {
                     m_unityProcess.WaitForInputIdle(10_000);
-                    EnumChildWindows(hwndParent.Handle, WindowEnum, IntPtr.Zero);
+
+                    const int repeatNumber = 50;
+                    int repeat = repeatNumber;
+                    do
+                    {
+                        if (repeat != repeatNumber)
+                        {
+                            Thread.Sleep(100);
+                        }
+                        EnumChildWindows(hwndParent.Handle, WindowEnum, IntPtr.Zero);
+                    } while (m_unityHandle == IntPtr.Zero && repeat-- > 0);
+                    if (m_unityHandle == IntPtr.Zero)
+                    {
+                        m_unityProcess?.Kill();
+                        throw new NotSupportedException("Unity HWnd not found.");
+                    }
+
                     ActivateUnityWindow();
-
                     System.Windows.Application.Current.Exit += Current_Exit;
-
                     // end init
                     return new HandleRef(this, m_unityHandle);
                 }
