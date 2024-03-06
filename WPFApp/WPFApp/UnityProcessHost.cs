@@ -49,6 +49,7 @@ namespace WPFApp
 
                     ActivateUnityWindow();
                     System.Windows.Application.Current.Exit += Current_Exit;
+
                     // end init
                     return new HandleRef(this, m_unityHandle);
                 }
@@ -63,21 +64,18 @@ namespace WPFApp
             return default;
         }
 
-        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
-        {
-            var size = sizeInfo.NewSize;
-            MoveWindow(m_unityHandle, 0, 0, (int)size.Width, (int)size.Height, true);
-            _ = SendMessage(m_unityHandle, WM_ACTIVATE, WA_ACTIVE, 0);
-            base.OnRenderSizeChanged(sizeInfo);
-        }
-
         protected override void DestroyWindowCore(HandleRef hwnd)
         {
+            SetParent(m_unityHandle, IntPtr.Zero);
             DestroyWindow(hwnd.Handle);
+            m_unityProcess?.Kill();
+            m_unityProcess?.Close();
+            m_unityProcess = null;
         }
 
         protected override nint WndProc(nint hwnd, int msg, nint wParam, nint lParam, ref bool handled)
         {
+            // never goto here?
             handled = false;
             return IntPtr.Zero;
         }
@@ -85,6 +83,7 @@ namespace WPFApp
         void Current_Exit(object sender, ExitEventArgs e)
         {
             m_unityProcess?.Kill();
+            m_unityProcess?.Close();
             m_unityProcess = null;
         }
 

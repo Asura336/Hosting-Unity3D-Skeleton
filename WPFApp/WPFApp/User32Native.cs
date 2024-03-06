@@ -4,17 +4,9 @@ namespace WPFApp
 {
     internal static partial class User32Native
     {
-        public const int GWLP_WNDPROC = -4;
-        public const int WM_INPUT = 0x00FF;
         public const int WM_ACTIVATE = 0x0006;
         public const int WA_ACTIVE = 1;
         public const int WA_INACTIVE = 0;
-
-        [LibraryImport("user32.dll")]
-        public static partial int SetWindowLong(IntPtr hWnd, int nIndex, int dwNewLong);
-
-        [LibraryImport("user32.dll", SetLastError = true)]
-        public static partial int GetWindowLong(IntPtr hWnd, int nIndex);
 
         [LibraryImport("user32.dll")]
         public static partial IntPtr SetParent(IntPtr hWnd, IntPtr hWndParent);
